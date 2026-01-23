@@ -1,0 +1,102 @@
+&Parameters
+LambdaK = 400.0     !in the range  [300,700 km]
+zmin = 80.0   !in km
+zmax = 500.0  !in km
+nzW  = 801
+
+TypeSolMet   = 1  !1 = GMMA, 2 = GMMN, 3 = SMMA
+TypeLinModel = 1  !1 = general, 2 = isothermal, homogeneous, and windless atmosphere
+DoIonDrag    = .true.
+zminDiffVelocity = 160.0 !in km
+Prandtl = 0.66
+qNEV    = 2         !1 for u, 2 for w, and 3 for T
+epsT    = 2.e-4
+epsU    = 5.e-3
+w0BC    = 5.e-2     !in m/s
+
+NFFT = 256
+RatioSigmaOmega = 20.0  ! 10,20,30
+NPeriod  = 30           ! 20,30,40
+TimeMin  = 0.0          ! in hours
+
+NZShift  = 10
+dZShift  = 20.0
+NOmegaIm = 5  !1
+AbsOmegaImSF  = 1.e-6
+AbsOmegaImMax = 1.e-4   !set to 1.e-2 when the Global Causality Condition is checked
+AbsOmegaImMin = 1.e-6
+DOmegaIm  =  1.e-6      !DOmegaIm = AbsOmegaImMin
+
+fileIRI  = 'IRIData/iri_outputE.txt'
+mmass    =  48
+Tinf_scl =  1.0
+ap       =  7.0
+hwm_mod  =  14  !93, 7, 14
+&end
+
+!Variables:
+! - LambdaK: horizontal wavelength in the range [300,700 km]
+! - zmin: minimum altitude in km (>= 50 km)
+! - zmax: mximum altitude in km (<= 500 km)
+! - nzW: number of discrete altitude levels
+!
+! - TypeSolMet: type of the solution method
+!               - 1 = Global-Matrix Method for Amplitudes (GMMA)
+!               - 2 = Global-Matrix Method for Nodal(grid-point) Values (GMMN)
+!               - 3 = Scattering-Matrix Method for Amplitudes (SMMA)
+! - TypeLinModel: type of the linearization model:
+!                 - 1: general
+!                 - 2: isothermal, homogeneous, and windless atmosphere without
+!                      ion drag
+! - DoIonDrag: if true, the ion-drag terms are included in the calculation
+! - zminDiffVelocity: minimum altitude at which the plasma diffusion velocity
+!                     is taken into account
+! - Prandtl: Prandtl number
+! - qNEV: specifies the component of the state vector used for eigenvector
+!         normalization and, at the same time, the component of the state vector
+!         on which the boundary condition is imposed.
+! - epsT: scale factor for temperature. The amplitude of the perturbed temperature
+!         at the lower boundary is chosen as epsT * TempMax, where TempMax is the
+!         maximum temperature of neutrals over the altitude range.
+! - epsU: scale factor for horizontal velocity. The amplitude of the perturbed
+!         horizontal velocity at the lower boundary is chosen as epsU * UTMax,
+!         where UTMax is the maximum horizontal velocity of neutrals in the
+!         south direction over the altitude range.
+! - w0BC: amplitude of the perturbed vertical velocity
+!
+! - NFFT: number of discrete points for computing the Fourier transform in the
+!         case of a time wavepacket
+! - RatioSigmaOmega: factor for computing the frequency standard deviation
+!                    SigmaOmega as SigmaOmega = Omega0 / RatioSigmaOmega
+! - NPeriod: number of time periods in the time interval used for the Fourier
+!            transform. The number of time standard deviations contained in this
+!            interval should be larger than 6. When this is not the case, a warning is
+!            printed and either NPeriod should be increased or RatioSigmaOmega should
+!            be reduced. The pair (RatioSigmaOmega,NPeriod) can take the values
+!           (10.20), (20,30), and (30,40)
+! - TimeMin: initial time of the time interval. Default is 0.0.
+!
+! - NZShift: number of altitude levels for checking the layerwise causality condition
+!            (eigenvalue crossings as functions of frequency)
+! - dZShift: altitude discretization step for checking the layerwise causality
+!            condition
+! - NOmegaIm: number of equidistant imaginary frequency shifts in the interval
+!             [AbsOmegaImMin,AbsOmegaImMax]. If NOmegaIm = 1, then
+!             OmegaIm = - AbsOmegaImMin
+! - AbsOmegaImSF: imaginary part of the frequency shift for single-frequency wave
+! - AbsOmegaImMin, AbsOmegaImMax: minimum and maximum values of the imaginary part
+!                                 of the frequency for a time-dependent
+!                                 wave packet
+! - DOmegaIm: frequency step used to reduce the discrete values of the
+!             imaginary part of the frequency. Set DOmegaIm = AbsOmegaImMin.
+!
+! - fileIRI: name of the IRI-data file
+! - mmass: average neutral mass density. The default is 48.
+! - Tinf_scl: scale factor for the exospheric temperature in MSIS
+! - ap: magnetic index. Takes the values
+!           0–3	      Very quiet: Near-climatological
+!           4–6	      Quiet: Standard background
+!           7–15	  Slightly disturbed: Mild auroral forcing
+!           16–30	  Moderately disturbed: Enhanced high-latitude winds
+!           >30	      Storm conditions: Strong disturbance
+! - hwm_mod: selects which HWM (wind) model is run (93, 7, 14)
