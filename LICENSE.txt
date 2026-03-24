@@ -34,11 +34,8 @@ Third-Party Components
 This project includes third-party software components with separate licenses:
 
 - LAPACK — BSD 3-clause license
-- L-BFGS (SETULB) — BSD 3-clause license
-- DIRECT — GNU LGPL v2.1 or later
-- PORT library — non-commercial license
+- sami2py - 3-Clause BSD License
 - Ooura FFT routines — permissive license
-- John Burkhardt routines — MIT license
 
 Users are responsible for complying with the terms of these licenses.
 
