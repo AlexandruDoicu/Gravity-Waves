@@ -1,0 +1,21 @@
+# Compiled objects
+*.o
+*.mod
+*.a
+*.so
+
+# Executables
+*.out
+*.exe
+
+# Build directories
+build/
+bin/
+
+# lyx
+*.lyx
+readme.txt
+
+# Temporary files
+*.log
+*.tmp
